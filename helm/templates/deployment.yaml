@@ -25,7 +25,10 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          image: {{ .Values.image.repository }}:{{ .Chart.AppVersion }}
+          env:
+          - name: SLACK_WEBHOOK
+            value: {{ .Values.slackwebhookurl }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 #          ports:
 #            - name: http

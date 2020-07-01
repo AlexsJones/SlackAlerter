@@ -27,6 +27,7 @@ import (
   "github.com/AlexsJones/kubeops/lib/runtime"
   "github.com/AlexsJones/kubeops/lib/subscription"
   "github.com/AlexsJones/kubeops/lib/watcher"
+  "github.com/AlexsJones/kubeops/subscriptions"
   "k8s.io/client-go/kubernetes"
   "k8s.io/client-go/tools/clientcmd"
   "k8s.io/klog"
@@ -81,10 +82,10 @@ func main() {
    */
   runtime.EventBuffer(ctx, kubeClient, &subscription.Registry{
     Subscriptions: []subscription.ISubscription{
-
+      subscriptions.SlackAlertPod{},
     },
   },[]watcher.IObject{
-
+    kubeClient.CoreV1().Pods(""),
   })
 
 }
